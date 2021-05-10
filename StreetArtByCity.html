@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title> Find StreetArt/Graffiti </title>
+<script>	
+function getAddress(){
+		console.log('getAddress')
+			thecityname = document.getElementById("cityName").value;
+			const data = null;
+			const xhr = new XMLHttpRequest();
+				  xhr.withcredential = true;	
+				  xhr.addEventListener("readystatechange", function (){
+				if (this.readyState === this.DONE) {
+					console.log(this.responseText);
+					const addressObj = JSON.parse(this.responseText);
+					console.log(addressObj);	
+					for(var result of addressObj){
+					theHTML = document.getElementById("addressdisplay")
+					theHTML.innerHTML = theHTML.innerHTML + "<p>" 
+										+ "<img src=" + result.pictLink + '></img>' + '<br>'
+										+ 'Artist:  ' + result.writersNames + '<br>'
+										+ 'Year:  ' + result.createdYear + '<br>'
+										+ 'Address:  ' + result.address + '<br>'
+										+ "<a href=" + result.linkOpenStreetMap + '>See Map</a>' + '<br>'
+										"</p>"}}});				
+					searchterm = document.getElementById('cityName').value 		
+					xhr.open("GET", "https://street-art.p.rapidapi.com/city/" + searchterm);
+					xhr.setRequestHeader("x-rapidapi-key", "e344661beemsh2e48eb355b01466p1b798cjsn514a19082ef6");
+					xhr.setRequestHeader("x-rapidapi-host", "street-art.p.rapidapi.com");
+					xhr.withcredentials = false;
+					xhr.send(data);} 
+   </script></head>
+					<div id="addressdisplay">
+					<body style="background-color:#00BFFF;">				
+					<h1> Search for Street Art and Graffiti in Any City <br><h4>*Feature to upload your own Street Art photos coming soon.</h4>
+					<h2> Enter a City Name: </h2>  <input type= "text" id="cityName"></h1>
+					<h4>**Please note, if your city does not appear with results enter the first 3 characters of the name <br> (ex. "Los" for Los Angeles, "New" for New York etc.)</h4>
+					<input type = "button" value = "Find Art!" onmouseup="getAddress()">
+			
+</div> 	
+</body>
+</html>
